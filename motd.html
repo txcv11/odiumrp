@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>OdiumRP Reborn</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -10,46 +11,33 @@
             width: 100%; height: 100vh;
             overflow: hidden;
             font-family: 'Segoe UI', sans-serif;
-            background: #0a0a0a;
+            background: #00050a;
         }
 
         .bg {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background:
-                radial-gradient(ellipse at 20% 50%, rgba(140, 0, 0, 0.4) 0%, transparent 60%),
-                radial-gradient(ellipse at 80% 20%, rgba(100, 0, 0, 0.3) 0%, transparent 50%),
-                radial-gradient(ellipse at 60% 80%, rgba(80, 0, 0, 0.2) 0%, transparent 50%),
-                linear-gradient(135deg, #0a0a0a 0%, #1a0000 50%, #0a0a0a 100%);
+                radial-gradient(ellipse at 20% 50%, rgba(0, 80, 140, 0.4) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(0, 60, 100, 0.3) 0%, transparent 50%),
+                radial-gradient(ellipse at 60% 80%, rgba(0, 40, 80, 0.2) 0%, transparent 50%),
+                linear-gradient(135deg, #00050a 0%, #000a1a 50%, #00050a 100%);
             z-index: 0;
         }
 
         .grid {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-image:
-                linear-gradient(rgba(180, 0, 0, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(180, 0, 0, 0.05) 1px, transparent 1px);
+                linear-gradient(rgba(0, 150, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 150, 255, 0.05) 1px, transparent 1px);
             background-size: 50px 50px;
             z-index: 1;
         }
 
-        .particles {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: 2;
-            overflow: hidden;
-        }
+        .particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; overflow: hidden; }
 
         .particle {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: rgba(200, 0, 0, 0.6);
-            border-radius: 50%;
+            position: absolute; width: 2px; height: 2px;
+            background: rgba(0, 180, 255, 0.6); border-radius: 50%;
             animation: float linear infinite;
         }
 
@@ -61,173 +49,112 @@
         }
 
         .corner-tl, .corner-tr, .corner-bl, .corner-br {
-            position: fixed;
-            width: 60px; height: 60px;
-            z-index: 10;
+            position: fixed; width: 60px; height: 60px; z-index: 10;
         }
-        .corner-tl { top: 24px; left: 24px; border-top: 2px solid #cc0000; border-left: 2px solid #cc0000; }
-        .corner-tr { top: 24px; right: 24px; border-top: 2px solid #cc0000; border-right: 2px solid #cc0000; }
-        .corner-bl { bottom: 24px; left: 24px; border-bottom: 2px solid #cc0000; border-left: 2px solid #cc0000; }
-        .corner-br { bottom: 24px; right: 24px; border-bottom: 2px solid #cc0000; border-right: 2px solid #cc0000; }
+        .corner-tl { top: 24px; left: 24px; border-top: 2px solid #0099ff; border-left: 2px solid #0099ff; }
+        .corner-tr { top: 24px; right: 24px; border-top: 2px solid #0099ff; border-right: 2px solid #0099ff; }
+        .corner-bl { bottom: 24px; left: 24px; border-bottom: 2px solid #0099ff; border-left: 2px solid #0099ff; }
+        .corner-br { bottom: 24px; right: 24px; border-bottom: 2px solid #0099ff; border-right: 2px solid #0099ff; }
 
+        /* Staff Listesi (Sol Üst) */
+        .staff-container {
+            position: fixed; top: 100px; left: 80px; z-index: 10;
+            text-align: left; display: flex; flex-direction: column; gap: 15px;
+        }
+
+        .staff-group { display: flex; flex-direction: column; }
+
+        .label {
+            font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
+            color: rgba(255,255,255,0.3); margin-bottom: 2px;
+        }
+
+        .name {
+            font-size: 16px; font-weight: 700; letter-spacing: 2px;
+            color: #00ccff; text-shadow: 0 0 15px rgba(0, 204, 255, 0.6);
+        }
+
+        /* Spotify Tarzı Player (Sağ Üst) */
+        .player-container {
+            position: fixed; top: 100px; right: 80px; z-index: 20;
+            background: rgba(0, 0, 0, 0.6); border: 1px solid rgba(0, 153, 255, 0.3);
+            padding: 15px 25px; border-radius: 50px; backdrop-filter: blur(10px);
+            display: flex; align-items: center; gap: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .player-controls { display: flex; align-items: center; gap: 15px; }
+
+        .player-btn {
+            background: none; border: none; color: #fff; cursor: pointer;
+            font-size: 18px; transition: all 0.2s; opacity: 0.7;
+        }
+
+        .player-btn:hover { opacity: 1; color: #00ccff; transform: scale(1.1); }
+
+        .play-pause-btn {
+            width: 40px; height: 40px; background: #fff; color: #000;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 16px; opacity: 1 !important;
+        }
+
+        .play-pause-btn:hover { background: #00ccff; color: #fff; }
+
+        /* Ana İçerik */
         .content {
-            position: relative;
-            z-index: 5;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            text-align: center;
-            color: #fff;
+            position: relative; z-index: 5; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; height: 100vh;
+            text-align: center; color: #fff;
         }
 
         .logo {
-            font-size: 88px;
-            font-weight: 900;
-            letter-spacing: 10px;
-            text-transform: uppercase;
-            color: #fff;
-            text-shadow:
-                0 0 30px rgba(200, 0, 0, 1),
-                0 0 60px rgba(200, 0, 0, 0.7),
-                0 0 120px rgba(200, 0, 0, 0.4);
-            animation: logoPulse 3s ease-in-out infinite;
-            line-height: 1;
+            font-size: 88px; font-weight: 900; letter-spacing: 10px;
+            text-transform: uppercase; color: #fff;
+            text-shadow: 0 0 30px rgba(0, 100, 255, 1), 0 0 60px rgba(0, 100, 255, 0.7);
+            animation: logoPulse 3s ease-in-out infinite; line-height: 1;
         }
 
-        .logo span { color: #cc0000; }
+        .logo span { color: #0099ff; }
 
         @keyframes logoPulse {
-            0%, 100% { text-shadow: 0 0 30px rgba(200,0,0,1), 0 0 60px rgba(200,0,0,0.7), 0 0 120px rgba(200,0,0,0.4); }
-            50% { text-shadow: 0 0 40px rgba(255,0,0,1), 0 0 80px rgba(255,0,0,0.9), 0 0 160px rgba(255,0,0,0.6); }
+            0%, 100% { text-shadow: 0 0 30px rgba(0,100,255,1), 0 0 60px rgba(0,100,255,0.7); }
+            50% { text-shadow: 0 0 40px rgba(0,200,255,1), 0 0 80px rgba(0,200,255,0.9); }
         }
 
-        .tagline {
-            margin-top: 14px;
-            font-size: 13px;
-            letter-spacing: 8px;
-            text-transform: uppercase;
-            color: rgba(255,255,255,0.4);
-        }
+        .tagline { margin-top: 14px; font-size: 13px; letter-spacing: 8px; text-transform: uppercase; color: rgba(255,255,255,0.4); }
 
         .divider {
-            width: 300px;
-            height: 1px;
-            background: linear-gradient(to right, transparent, #cc0000, transparent);
-            margin: 32px auto;
-            position: relative;
+            width: 300px; height: 1px;
+            background: linear-gradient(to right, transparent, #0099ff, transparent);
+            margin: 32px auto; position: relative;
         }
 
         .divider::before {
-            content: '✦';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: #cc0000;
-            font-size: 12px;
-            background: #0a0a0a;
-            padding: 0 8px;
+            content: '✦'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            color: #00ccff; font-size: 12px; background: #00050a; padding: 0 8px;
         }
 
-        .loading-wrap {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-        }
+        .loading-wrap { display: flex; flex-direction: column; align-items: center; gap: 10px; }
 
-        .loading-text {
-            font-size: 11px;
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            color: rgba(255,255,255,0.35);
-        }
+        .loading-text { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: rgba(255,255,255,0.35); }
 
-        .loading-bar {
-            width: 280px;
-            height: 2px;
-            background: rgba(255,255,255,0.08);
-            position: relative;
-            overflow: hidden;
-        }
+        .loading-bar { width: 280px; height: 2px; background: rgba(255,255,255,0.08); position: relative; overflow: hidden; }
 
         .loading-bar::after {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: linear-gradient(to right, transparent, #cc0000, transparent);
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(to right, transparent, #0099ff, transparent);
             animation: scan 2s linear infinite;
         }
 
-        @keyframes scan {
-            0% { left: -100%; }
-            100% { left: 100%; }
-        }
-
-        .founder {
-            position: fixed;
-            bottom: 36px;
-            right: 80px;
-            z-index: 10;
-            text-align: right;
-        }
-
-        .founder-label {
-            font-size: 10px;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            color: rgba(255,255,255,0.3);
-            margin-bottom: 4px;
-        }
-
-        .founder-name {
-            font-size: 16px;
-            font-weight: 700;
-            letter-spacing: 3px;
-            color: #cc0000;
-            text-shadow: 0 0 15px rgba(204, 0, 0, 0.6);
-        }
-
-        .server-info {
-            position: fixed;
-            bottom: 36px;
-            left: 80px;
-            z-index: 10;
-            text-align: left;
-        }
-
-        .server-info .s-label {
-            font-size: 10px;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            color: rgba(255,255,255,0.3);
-            margin-bottom: 4px;
-        }
-
-        .server-info .s-value {
-            font-size: 14px;
-            font-weight: 600;
-            color: rgba(255,255,255,0.7);
-            letter-spacing: 2px;
-        }
+        @keyframes scan { 0% { left: -100%; } 100% { left: 100%; } }
 
         .top-line {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(to right, transparent, #cc0000, #ff0000, #cc0000, transparent);
-            z-index: 10;
-            animation: topGlow 3s ease-in-out infinite;
+            position: fixed; top: 0; left: 0; width: 100%; height: 3px;
+            background: linear-gradient(to right, transparent, #0066ff, #00ccff, #0066ff, transparent);
+            z-index: 10; animation: topGlow 3s ease-in-out infinite;
         }
 
-        @keyframes topGlow {
-            0%, 100% { opacity: 0.7; }
-            50% { opacity: 1; }
-        }
+        @keyframes topGlow { 0%, 100% { opacity: 0.7; } 50% { opacity: 1; } }
     </style>
 </head>
 <body>
@@ -242,14 +169,30 @@
     <div class="corner-bl"></div>
     <div class="corner-br"></div>
 
-    <div class="founder">
-        <div class="founder-label">Founder</div>
-        <div class="founder-name">LU4DEV</div>
+    <div class="staff-container">
+        <div class="staff-group">
+            <div class="label">Founder</div>
+            <div class="name">LU4DEV</div>
+        </div>
+        <div class="staff-group">
+            <div class="label">Developer</div>
+            <div class="name">Klecier</div>
+        </div>
+        <div class="staff-group">
+            <div class="label">Admins</div>
+            <div class="name">menemencisolo</div>
+            <div class="name">jvstaria</div>
+        </div>
     </div>
 
-    <div class="server-info">
-        <div class="s-label">Gamemode</div>
-        <div class="s-value">FunRP</div>
+    <div class="player-container">
+        <div class="player-controls">
+            <button class="player-btn"><i class="fas fa-backward-step"></i></button>
+            <button class="player-btn play-pause-btn" onclick="toggleMusic()" id="playBtn">
+                <i class="fas fa-play" id="playIcon"></i>
+            </button>
+            <button class="player-btn"><i class="fas fa-forward-step"></i></button>
+        </div>
     </div>
 
     <div class="content">
@@ -257,12 +200,17 @@
         <div class="tagline">Türkiye'nin En İyi FunRP Deneyimi</div>
         <div class="divider"></div>
         <div class="loading-wrap">
-            <div class="loading-text">İlk girişte biraz uzun sürebilir...</div>
+            <div class="loading-text">İlk girişte biraz uzun sürebilir, lütfen bekleyiniz...</div>
             <div class="loading-bar"></div>
         </div>
     </div>
 
+    <audio id="loadingMusic" loop>
+        <source src="https://files.catbox.moe/og2y7n.mp3" type="audio/mpeg">
+    </audio>
+
     <script>
+        // Parçacık Animasyonu
         const container = document.getElementById('particles');
         for (let i = 0; i < 30; i++) {
             const p = document.createElement('div');
@@ -273,6 +221,33 @@
             p.style.width = p.style.height = (1 + Math.random() * 3) + 'px';
             container.appendChild(p);
         }
+
+        // Müzik Fonksiyonları
+        const music = document.getElementById('loadingMusic');
+        const playIcon = document.getElementById('playIcon');
+        music.volume = 0.3;
+
+        function toggleMusic() {
+            if (music.paused) {
+                music.play();
+                playIcon.classList.remove('fa-play');
+                playIcon.classList.add('fa-pause');
+            } else {
+                music.pause();
+                playIcon.classList.remove('fa-pause');
+                playIcon.classList.add('fa-play');
+            }
+        }
+
+        // FiveM/Tarayıcı Otomatik Başlatma Denemesi
+        window.addEventListener('load', () => {
+            music.play().then(() => {
+                playIcon.classList.remove('fa-play');
+                playIcon.classList.add('fa-pause');
+            }).catch(() => {
+                console.log("Kullanıcı etkileşimi bekleniyor.");
+            });
+        });
     </script>
 
 </body>
